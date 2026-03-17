@@ -1,3 +1,5 @@
 .venvGRV/*
-.db.sqlite3
-.data/*
+db.sqlite3
+data/*
+.DS_Store
+
