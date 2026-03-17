@@ -1,0 +1,55 @@
+from rest_framework import viewsets, filters
+from rest_framework.routers import DefaultRouter, APIRootView
+from rest_framework.response import Response
+from .models import TownshipProperty
+from .serializers import TownshipPropertySerializer
+from rest_framework.pagination import LimitOffsetPagination
+from rest_framework import generics
+
+
+
+# CustomAPIRootView is a subclass of APIRootView that overrides the get method
+# to include the count of farm properties in the API root response. 
+# This allows clients to see how many farm properties are available when they access the API root endpoint.
+class CustomAPIRootView(APIRootView):
+    def get(self, request, *args, **kwargs):
+        # Call the default root view
+        response = super().get(request, *args, **kwargs)
+        # Add farm property count
+        township_count = TownshipProperty.objects.count()
+        response.data['town_property_count'] = township_count
+        return Response(response.data)
+
+
+class CustomRouter(DefaultRouter):
+    APIRootView = CustomAPIRootView
+
+
+#Pagination class to limit the number of results returned in a single API response. 
+# This helps improve performance and manageability when dealing with large datasets.
+class TownPropertyPagination(LimitOffsetPagination):
+
+    default_limit = 10 # Default number of items to return if not specified by the client
+    max_limit = 10 # Maximum number of items that can be returned in a single API response
+
+
+class TownPropertyViewSet(viewsets.ModelViewSet):
+    queryset = TownshipProperty.objects.all()
+    serializer_class = TownshipPropertySerializer
+    filter_backends = [filters.SearchFilter, filters.OrderingFilter]
+    search_fields = ['sg_code_21', 'street_address', 'erf_no',
+                     'registered_owner', 'township_name_ext']
+    ordering_fields = ['sg_code_21', 'street_address']
+    ordering = ['id']  # default ordering by id
+    sortBy = 'id'  # default sort by id
+    orderBy = 'asc'  # default order ascending
+    pagination_class = TownPropertyPagination
+    
+    # def owner_statuses(request):
+    #     statuses = Farm.objects.values_list('owner_status', flat=True).distinct()
+    #     return JsonResponse(list(statuses), safe=False)
+
+
+class TownDetailViewSet(generics.RetrieveAPIView):
+    queryset = TownshipProperty.objects.all()
+    serializer_class = TownshipPropertySerializer

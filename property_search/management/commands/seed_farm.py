@@ -28,7 +28,7 @@ class Command(BaseCommand):
             for row in reader:
                 farm = FarmProperty.objects.create(
                     sg_code_21=str(row['sg_code_21']),
-                    min_code=row['min_code'],
+                    prop_class=row['min_code'],
                     grv=row['grv'],
                     regdiv=row['regdiv'],
                     farm_name=row['farm_name'],

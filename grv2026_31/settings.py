@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     # Local apps
     'property_search.apps.PropertySearchConfig',
     'users.apps.UsersConfig',
+    'township_properties.apps.TownshipPropertiesConfig',
 
     # Third-party apps
     'rest_framework',
