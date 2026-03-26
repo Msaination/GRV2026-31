@@ -51,12 +51,12 @@ class TownshipProperty(BaseProperty):
         return self.township
     
 
-class Meta:
-    indexes = [
-        models.Index(fields=['sg_code_21']),
-    ]
-    verbose_name = "Township Property"
-    verbose_name_plural = "Towship Properties"
+    class Meta:
+        indexes = [
+            models.Index(fields=['sg_code_21']),
+        ]
+        verbose_name = "Township Property"
+        verbose_name_plural = "Towship Properties"
 
 
 

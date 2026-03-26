@@ -9,7 +9,7 @@ router.register(r'', TownPropertyViewSet, basename='township')
 # urlpatterns = router.urls
 urlpatterns = [
 
-    path('/<int:pk>', TownDetailViewSet.as_view(), name='town_details'), 
+    path('<int:pk>', TownDetailViewSet.as_view(), name='town_details'), 
 
 ] + router.urls
 

@@ -12,6 +12,7 @@ router.register(r'', FarmPropertyViewSet, basename='farm')
 
 urlpatterns = [
 
-    path('/<int:pk>', FarmDetailViewSet.as_view(), name='farm_details'),
+    path('<int:pk>', FarmDetailViewSet.as_view(), name='farm_details'),
+    # path('<int:pk>/export', FarmDetailViewSet.as_view(), name='farm_details'),
 
 ] + router.urls

@@ -5,6 +5,7 @@ from .models import FarmProperty
 from .serializers import FarmPropertySerializer
 from rest_framework.pagination import LimitOffsetPagination
 from rest_framework import generics
+from rest_framework.permissions import AllowAny
 
 
 
@@ -19,10 +20,12 @@ class CustomAPIRootView(APIRootView):
         farm_count = FarmProperty.objects.count()
         response.data['farm_property_count'] = farm_count
         return Response(response.data)
+        permission_classes = [AllowAny]
 
 
 class CustomRouter(DefaultRouter):
     APIRootView = CustomAPIRootView
+    permission_classes = [AllowAny]
 
 
 #Pagination class to limit the number of results returned in a single API response. 
@@ -45,6 +48,7 @@ class FarmPropertyViewSet(viewsets.ModelViewSet):
     sortBy = 'id'  # default sort by id
     orderBy = 'asc'  # default order ascending
     pagination_class = FarmPropertyPagination
+    permission_classes = [AllowAny]
 
     
     # def owner_statuses(request):
@@ -54,4 +58,5 @@ class FarmPropertyViewSet(viewsets.ModelViewSet):
 class FarmDetailViewSet(generics.RetrieveAPIView):
     queryset = FarmProperty.objects.all()
     serializer_class = FarmPropertySerializer
+    permission_classes = [AllowAny]
 

@@ -33,10 +33,13 @@ INSTALLED_APPS = [
     'property_search.apps.PropertySearchConfig',
     'users.apps.UsersConfig',
     'township_properties.apps.TownshipPropertiesConfig',
+    'objections.apps.ObjectionsConfig',
 
     # Third-party apps
     'rest_framework',
     'corsheaders',
+    'drf_yasg',
+    'rest_framework_simplejwt',
 ]
 
 MIDDLEWARE = [
@@ -123,3 +126,23 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'users.User'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    # "DEFAULT_PERMISSION_CLASSES": (
+    # "rest_framework.permissions.IsAuthenticated",
+    # ),
+}
+
+SWAGGER_SETTINGS = {
+    "SECURITY_DEFINITIONS": {
+        "Bearer": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header",
+            "description": "JWT Authorization header using the Bearer scheme. Example: 'Bearer {token}'",
+        }
+    }
+}

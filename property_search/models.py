@@ -52,13 +52,13 @@ class FarmProperty(BaseProperty):
         return self.farm_name
     
 
-class Meta:
-    indexes = [
-        models.Index(fields=['sg_code_21']),
-        models.Index(fields=['registered_owner']),
-    ]
-    verbose_name = "Farm Property"
-    verbose_name_plural = "Farm Properties"
+    class Meta:
+        indexes = [
+            models.Index(fields=['sg_code_21']),
+        ]
+        verbose_name = "Farm Property"
+        verbose_name_plural = "Farm Properties"
+
 
 
 

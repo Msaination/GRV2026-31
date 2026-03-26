@@ -1,7 +1,8 @@
 from django.contrib import admin
+from .models import FarmProperty
+
 
 # Register your models here.
-from .models import FarmProperty
 @admin.register(FarmProperty)
 class FarmPropertyAdmin(admin.ModelAdmin):
     list_display = ('sg_code_21', 'farm_name', 'physical_address', 'market_value')
@@ -13,7 +14,6 @@ class FarmPropertyAdmin(admin.ModelAdmin):
         ('Ownership', {'fields': ('id_number', 'sg_code_21', 'owner', 'owner_status')}),
         ('Additional Info', {'fields': ('farm_name', 'min_code', 'grv', 'regdiv', 'sectional_title', 'erf_no', 'ptn', 'unit', 'extent', 'ha', 'category', 'remarks')}),
     )
-    
 
     # Fields shown when creating a new property
     add_fieldsets = (
